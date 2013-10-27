@@ -1,0 +1,9 @@
+{
+	"name": "share",
+	"description": "An app for easily sharing files",
+	"author": "greenb",
+	"dependencies": {
+		"express": "3.4.x",
+		"ejs": "0.8.x"
+	}
+}
