@@ -53,4 +53,5 @@ app.use(function (req, res, next) {
   res.render('404.html');
 });
 
-app.listen(80);
+var port = process.env.PORT || 3000;
+app.listen(port);
