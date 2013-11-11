@@ -38,7 +38,7 @@ app.get('/share', function (req, res) {
   res.render('index.html');
 });
 
-app.post('/upload', function (req, res) {
+app.post('/share/upload', function (req, res) {
   var folder = randomName(5);
   var name = req.files.file.name;
 
