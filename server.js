@@ -32,7 +32,7 @@ app.engine('html', ejs.renderFile);
 app.use(express.limit('100 gb'));
 app.use(express.bodyParser({uploadDir: tmpDir}));
 app.use('/share', express.static(uploadsDir));
-app.use('/share', express.static(path.join(__dirname, 'deps')));
+app.use('/share', express.static(path.join(__dirname, 'public')));
 
 app.get('/share', function (req, res) {
   res.render('index.html');
