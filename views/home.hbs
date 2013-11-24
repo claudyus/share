@@ -8,7 +8,8 @@
     init: function() {
       this.on('success', function (file, response) {
         var url = location.protocol + '//' + location.host + '/share/' + response;
-        $('#successList').append('<li><h3>' + url + '</h3></li>');
+        $('#successList').append('<li><h3><input readonly class="successLink" type="text" value="' + url + '"></h3></li>');
+        $('.successLink').last().select();
       });
     }
   };
