@@ -4,6 +4,6 @@
   "author": "greenb",
   "dependencies": {
     "express": "3.4.x",
-    "ejs": "0.8.x"
+    "express3-handlebars": "0.5.x"
   }
 }

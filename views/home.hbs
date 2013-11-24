@@ -1,0 +1,15 @@
+<div class="container">
+  <form action="/share/upload" class="dropzone" id="dropzoneForm"></form>
+  <ul class="list-unstyled" id="successList"></ul>
+</div>
+<script>
+  Dropzone.options.dropzoneForm = {
+    maxFilesize: 100 * 1024,
+    init: function() {
+      this.on('success', function (file, response) {
+        var url = location.protocol + '//' + location.host + '/share/' + response;
+        $('#successList').append('<li><h3>' + url + '</h3></li>');
+      });
+    }
+  };
+</script>

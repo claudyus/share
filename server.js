@@ -1,7 +1,7 @@
 var fs = require('fs');
 var path = require('path');
-var ejs = require('ejs');
 var express = require('express');
+var exphbs = require('express3-handlebars');
 
 var app = express();
 
@@ -26,8 +26,10 @@ if (!fs.existsSync(tmpDir))
 if (!fs.existsSync(uploadsDir))
   fs.mkdirSync(uploadsDir);
 
-app.set('views', path.join(__dirname, '/views'));
-app.engine('html', ejs.renderFile);
+app.disable('x-powered-by');
+
+app.engine('hbs', exphbs({defaultLayout: 'main.hbs'}));
+app.set('view engine', 'hbs');
 
 app.use(express.limit('100 gb'));
 app.use(express.bodyParser({uploadDir: tmpDir}));
@@ -35,7 +37,7 @@ app.use('/share', express.static(uploadsDir));
 app.use('/share', express.static(path.join(__dirname, 'public')));
 
 app.get('/share', function (req, res) {
-  res.render('index.html');
+  res.render('home');
 });
 
 app.post('/share/upload', function (req, res) {
@@ -50,7 +52,7 @@ app.post('/share/upload', function (req, res) {
 
 app.use(function (req, res, next) {
   res.status(404);
-  res.render('404.html');
+  res.render('404');
 });
 
 var port = process.env.PORT || 3000;
