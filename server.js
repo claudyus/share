@@ -5,7 +5,7 @@ var exphbs = require('express3-handlebars');
 
 var app = express();
 
-var randomName = function(length) {
+var randomName = function (length) {
   var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
   var name = '';
