@@ -3,6 +3,7 @@ var path = require('path');
 var express = require('express');
 var exphbs = require('express3-handlebars');
 var Busboy = require('busboy');
+var q = require('q');
 
 var randomName = function (length) {
   var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -51,9 +52,11 @@ app.post('/share/upload', function (req, res) {
   });
   
   busboy.on('end', function () {
-    fs.mkdirSync(path.join(uploadsDir, folder));
-    fs.renameSync(path.join(tmpDir, folder), path.join(uploadsDir, folder, name));
-    res.send(folder + '/' + encodeURIComponent(name));
+    q.nfcall(fs.mkdir, path.join(uploadsDir, folder))
+    .then(q.nfcall(fs.rename, path.join(tmpDir, folder), path.join(uploadsDir, folder, name)))
+    .then(function () {
+      res.send(folder + '/' + encodeURIComponent(name));
+    });
   });
 
   req.pipe(busboy);
