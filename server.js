@@ -15,7 +15,7 @@ var randomName = function(length) {
   }
 
   return name;
-}
+};
 
 var tmpDir = path.join(__dirname, 'tmp');
 var uploadsDir = path.join(__dirname, 'uploads');
