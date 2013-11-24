@@ -2,8 +2,7 @@ var fs = require('fs');
 var path = require('path');
 var express = require('express');
 var exphbs = require('express3-handlebars');
-
-var app = express();
+var Busboy = require('busboy');
 
 var randomName = function (length) {
   var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -26,13 +25,13 @@ if (!fs.existsSync(tmpDir))
 if (!fs.existsSync(uploadsDir))
   fs.mkdirSync(uploadsDir);
 
+var app = express();
+
 app.disable('x-powered-by');
 
 app.engine('hbs', exphbs({defaultLayout: 'main.hbs'}));
 app.set('view engine', 'hbs');
 
-app.use(express.limit('100 gb'));
-app.use(express.bodyParser({uploadDir: tmpDir}));
 app.use('/share', express.static(uploadsDir));
 app.use('/share', express.static(path.join(__dirname, 'public')));
 
@@ -41,13 +40,23 @@ app.get('/share', function (req, res) {
 });
 
 app.post('/share/upload', function (req, res) {
+  var busboy = new Busboy({headers: req.headers});
+
   var folder = randomName(5);
-  var name = req.files.file.name;
+  var name = '';
 
-  fs.mkdirSync(path.join(uploadsDir, folder));
-  fs.renameSync(req.files.file.path, path.join(uploadsDir, folder, name));
+  busboy.on('file', function (fieldname, file, filename, encoding, mimetype) {
+    name = filename;
+    file.pipe(fs.createWriteStream(path.join(tmpDir, folder)));
+  });
+  
+  busboy.on('end', function () {
+    fs.mkdirSync(path.join(uploadsDir, folder));
+    fs.renameSync(path.join(tmpDir, folder), path.join(uploadsDir, folder, name));
+    res.send(folder + '/' + encodeURIComponent(name));
+  });
 
-  res.send(folder + '/' + encodeURIComponent(name));
+  req.pipe(busboy);
 });
 
 app.use(function (req, res, next) {
