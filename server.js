@@ -52,9 +52,13 @@ app.post('/share/upload', function (req, res) {
   });
   
   busboy.on('end', function () {
-    fs.mkdirSync(path.join(uploadsDir, folder));
-    fs.renameSync(path.join(tmpDir, folder), path.join(uploadsDir, folder, name));
-    res.send(folder + '/' + encodeURIComponent(name));
+    q.nfcall(fs.mkdir, path.join(uploadsDir, folder))
+    .then(function () {
+      return q.nfcall(fs.rename, path.join(tmpDir, folder), path.join(uploadsDir, folder, name));
+    })
+    .then(function () {
+      res.send(folder + '/' + encodeURIComponent(name));
+    });
   });
 
   req.pipe(busboy);
