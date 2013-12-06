@@ -4,6 +4,7 @@ var express = require('express');
 var exphbs = require('express3-handlebars');
 var Busboy = require('busboy');
 var q = require('q');
+var sanitize = require('sanitize-filename');
 
 var randomName = function (length) {
   var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -47,7 +48,7 @@ app.post('/share/upload', function (req, res) {
   var name = '';
 
   busboy.on('file', function (fieldname, file, filename, encoding, mimetype) {
-    name = filename;
+    name = sanitize(filename);
     file.pipe(fs.createWriteStream(path.join(tmpDir, folder)));
   });
   
