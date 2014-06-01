@@ -1,12 +1,31 @@
 {
   "name": "share",
   "description": "An app for easily sharing files",
-  "author": "greenb",
+  "author": "Brian Green",
   "dependencies": {
-    "express": "3.4.x",
-    "express3-handlebars": "0.5.x",
-    "busboy": "0.0.x",
-    "q": "0.9.x",
-    "sanitize-filename": "1.0.x"
-  }
+    "connect-busboy": "0.0.1",
+    "sanitize-filename": "^1.0.1",
+    "debug": "^0.8.1",
+    "q": "^1.0.1",
+    "express": "^4.4.0",
+    "express3-handlebars": "^0.5.0"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "version": "0.0.1",
+  "main": "server.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/briangreenery/share.git"
+  },
+  "keywords": [
+    "file-upload"
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/briangreenery/share/issues"
+  },
+  "homepage": "https://github.com/briangreenery/share"
 }

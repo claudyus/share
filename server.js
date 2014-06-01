@@ -1,33 +1,34 @@
-var fs = require('fs');
-var path = require('path');
-var express = require('express');
-var exphbs = require('express3-handlebars');
-var Busboy = require('busboy');
-var q = require('q');
-var sanitize = require('sanitize-filename');
+var busboy = require('connect-busboy'),
+  debug = require('debug')('share'),
+  express = require('express'),
+  exphbs = require('express3-handlebars'),
+  fs = require('fs'),
+  path = require('path'),
+  Q = require('q'),
+  sanitize = require('sanitize-filename');
 
-var randomName = function (length) {
-  var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+var tmpDir = path.join(__dirname, 'tmp'),
+  uploadsDir = path.join(__dirname, 'uploads'),
+  app = express(),
+  port = process.env.PORT || 3000; 
 
-  var name = '';
-  for (var i = 0; i < length; i++) {
-    var number = Math.floor(Math.random() * alphabet.length);
-    name += alphabet[number];
+function randomName(length) {
+  var i,
+    name = '',
+    alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+  for (i = 0; i < length; i++) {
+    name += alphabet[Math.floor(Math.random() * alphabet.length)];
   }
 
   return name;
-};
-
-var tmpDir = path.join(__dirname, 'tmp');
-var uploadsDir = path.join(__dirname, 'uploads');
+}
 
 if (!fs.existsSync(tmpDir))
   fs.mkdirSync(tmpDir);
 
 if (!fs.existsSync(uploadsDir))
   fs.mkdirSync(uploadsDir);
-
-var app = express();
 
 app.disable('x-powered-by');
 
@@ -37,39 +38,39 @@ app.set('view engine', 'hbs');
 app.use('/share', express.static(uploadsDir));
 app.use('/share', express.static(path.join(__dirname, 'public')));
 
-app.get('/share', function (req, res) {
+app.get('/share', function(req, res) {
   res.render('home');
 });
 
-app.post('/share/upload', function (req, res) {
-  var busboy = new Busboy({headers: req.headers});
+app.post('/share/upload', busboy(), function(req, res) {
+  var folder = randomName(5),
+    name = '';
 
-  var folder = randomName(5);
-  var name = '';
-
-  busboy.on('file', function (fieldname, file, filename, encoding, mimetype) {
+  req.busboy.on('file', function(fieldname, file, filename) {
     name = sanitize(filename);
     file.pipe(fs.createWriteStream(path.join(tmpDir, folder)));
   });
-  
-  busboy.on('end', function () {
-    q.nfcall(fs.mkdir, path.join(uploadsDir, folder))
-    .then(function () {
-      return q.nfcall(fs.rename, path.join(tmpDir, folder), path.join(uploadsDir, folder, name));
-    })
-    .then(function () {
-      res.send(folder + '/' + encodeURIComponent(name));
-    });
+
+  req.busboy.on('end', function() {
+    Q.nfcall(fs.mkdir, path.join(uploadsDir, folder))
+      .then(function() {
+        return Q.nfcall(fs.rename,
+          path.join(tmpDir, folder),
+          path.join(uploadsDir, folder, name));
+      })
+      .then(function() {
+        res.send(folder + '/' + encodeURIComponent(name));
+      })
+      .done();
   });
 
-  req.pipe(busboy);
+  req.pipe(req.busboy);
 });
 
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
   res.status(404);
   res.render('404');
 });
 
-var port = process.env.PORT || 3000;
 app.listen(port);
-console.log('Listening on port ' + port);
+debug('Listening on port %d', port);
