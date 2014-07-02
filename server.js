@@ -52,7 +52,7 @@ app.post('/share/upload', function(req, res) {
     file.pipe(fs.createWriteStream(path.join(tmpDir, folder)));
   });
 
-  busboy.on('end', function() {
+  busboy.on('finish', function() {
     Q.nfcall(fs.mkdir, path.join(uploadsDir, folder))
       .then(function() {
         return Q.nfcall(fs.rename,
