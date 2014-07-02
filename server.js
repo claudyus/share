@@ -1,4 +1,4 @@
-var busboy = require('connect-busboy'),
+var Busboy = require('busboy'),
   debug = require('debug')('share'),
   express = require('express'),
   exphbs = require('express3-handlebars'),
@@ -42,16 +42,17 @@ app.get('/share', function(req, res) {
   res.render('home');
 });
 
-app.post('/share/upload', busboy(), function(req, res) {
+app.post('/share/upload', function(req, res) {
   var folder = randomName(5),
-    name = '';
+    name = '',
+    busboy = new Busboy({headers: req.headers});
 
-  req.busboy.on('file', function(fieldname, file, filename) {
+  busboy.on('file', function(fieldname, file, filename) {
     name = sanitize(filename);
     file.pipe(fs.createWriteStream(path.join(tmpDir, folder)));
   });
 
-  req.busboy.on('end', function() {
+  busboy.on('end', function() {
     Q.nfcall(fs.mkdir, path.join(uploadsDir, folder))
       .then(function() {
         return Q.nfcall(fs.rename,
@@ -64,7 +65,7 @@ app.post('/share/upload', busboy(), function(req, res) {
       .done();
   });
 
-  req.pipe(req.busboy);
+  req.pipe(busboy);
 });
 
 app.use(function(req, res, next) {
