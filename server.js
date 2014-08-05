@@ -35,14 +35,14 @@ app.disable('x-powered-by');
 app.engine('hbs', exphbs({defaultLayout: 'main.hbs'}));
 app.set('view engine', 'hbs');
 
-app.use('/share', express.static(uploadsDir));
-app.use('/share', express.static(path.join(__dirname, 'public')));
+app.use('/', express.static(uploadsDir));
+app.use('/', express.static(path.join(__dirname, 'public')));
 
-app.get('/share', function(req, res) {
+app.get('/', function(req, res) {
   res.render('home');
 });
 
-app.post('/share/upload', function(req, res) {
+app.post('/upload', function(req, res) {
   var folder = randomName(5),
     name = '',
     busboy = new Busboy({headers: req.headers});
