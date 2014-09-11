@@ -3,18 +3,16 @@
   "description": "An app for easily sharing files",
   "author": "Brian Green",
   "dependencies": {
-    "sanitize-filename": "^1.0.1",
+    "busboy": "^0.2.7",
     "debug": "^0.8.1",
-    "q": "^1.0.1",
     "express": "^4.4.0",
-    "express3-handlebars": "^0.5.0",
-    "busboy": "^0.2.7"
+    "express-handlebars": "^1.0.3",
+    "q": "^1.0.1",
+    "rimraf": "^2.2.8",
+    "sanitize-filename": "^1.0.1"
   },
-  "scripts": {
-    "start": "node server.js"
-  },
-  "version": "0.0.1",
-  "main": "server.js",
+  "version": "1.0.0",
+  "main": "./lib/server.js",
   "devDependencies": {},
   "repository": {
     "type": "git",
@@ -23,7 +21,7 @@
   "keywords": [
     "file-upload"
   ],
-  "license": "ISC",
+  "license": "Unlicense",
   "bugs": {
     "url": "https://github.com/briangreenery/share/issues"
   },
