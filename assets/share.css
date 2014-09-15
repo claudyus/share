@@ -1,0 +1,8 @@
+#result {
+  border: none;
+  resize: none;
+  width: 100%;
+  font-size: 20px;
+  color: #333;
+  display: none;
+}
