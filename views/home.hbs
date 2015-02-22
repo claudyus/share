@@ -12,7 +12,7 @@ $().ready(function(){
   var files = {{{files}}};
   if (files) {
     for (a in files) {
-      onSuccess(null, files[a]);
+      onSuccess(null, "{{random}}/" + files[a]);
     }
   }
 });
