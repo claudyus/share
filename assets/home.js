@@ -1,5 +1,3 @@
-var rows = 0;
-
 Dropzone.options.dropzoneForm = {
   maxFilesize: 100 * 1024,
   init: onInit
@@ -11,15 +9,15 @@ function onInit() {
 
 function onSuccess(file, response) {
   var url = location.protocol + '//' + location.host + '/' + response;
-  var result = $('#result');
+  var txtArea = $('#result');
 
-  if (rows == 0)
-    result.val(url);
-  else
-    result.val(result.val() + '\n' + url);
+  // count number of rows in txtArea
+  var rows = txtArea.val().split("\n").length;
+
+  txtArea.val(txtArea.val() + '\n' + url);
 
   rows += 1;
-  result.attr('rows', rows);
-  result.show();
-  result.select();
+  txtArea.attr('rows', rows);
+  txtArea.show();
+  txtArea.select();
 }

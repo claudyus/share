@@ -6,4 +6,14 @@
     <textarea id="result" rows="1" readonly></textarea>
   </div>
 </div>
-<script>{{{homejs}}}</script>
+<script>
+{{{homejs}}}
+$().ready(function(){
+  var files = {{{files}}};
+  if (files) {
+    for (a in files) {
+      onSuccess(null, files[a]);
+    }
+  }
+});
+</script>
