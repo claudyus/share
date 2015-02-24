@@ -2,3 +2,4 @@ node_modules/
 tmp/
 upload/
 .DS_STORE
+bower_components/*
