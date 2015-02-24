@@ -24,6 +24,7 @@ module.exports = function(grunt) {
           'public/share.css': [
             'bower_components/bootstrap/dist/css/bootstrap.css',
             'bower_components/dropzone/downloads/css/dropzone.css',
+            'bower_components/github-fork-ribbon-css/gh-fork-ribbon.css',
             'assets/share.css'
           ]
         }
