@@ -2,18 +2,39 @@
   <div class="row">
     <form action="/u/{{random}}" class="dropzone" id="dropzoneForm"></form>
   </div>
-  <div class"row">
-    <textarea id="result" rows="1" readonly></textarea>
+  <div class"row" id="files_dl">
   </div>
 </div>
+
 <script>
-{{{homejs}}}
+{{!-- signature compliant with dropzone.onSuccess() --}}
+function add_file_entry(file, resp) {
+  $("#files_dl").loadTemplate($("#template"),
+    { file: location.protocol + '//' + location.host + '/' + resp }, { append: true});
+}
+
+{{!-- on ready render the files list for those userspace  --}}
 $().ready(function(){
   var files = {{{files}}};
   if (files) {
     for (a in files) {
-      onSuccess(null, "{{random}}/" + files[a]);
+      add_file_entry(null, "{{random}}/" + files[a]);
     }
   }
 });
+
+function onInit() {
+  this.on('success', add_file_entry);
+}
+
+Dropzone.options.dropzoneForm = {
+  maxFilesize: 100 * 1024,
+  init: onInit
+};
+</script>
+
+<script type="text/html" id="template">
+  <div>
+    <i class="glyphicon glyphicon-download"> <a data-href="file" data-content="file" target="_blank"></a></i>
+  </div>
 </script>
