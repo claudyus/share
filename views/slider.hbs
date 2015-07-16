@@ -1,0 +1,48 @@
+<div id="carousel" class="carousel slide" data-ride="carousel" style="height: 500px;">
+  <!-- Indicators -->
+  <ol class="carousel-indicators" id="indicator">
+    <!-- empty div filled by function add_slide_entry -->
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner" role="listbox" id="list_img">
+  <!-- empty div filled by function add_slide_entry -->
+  </div>
+
+  <!-- Left and right controls -->
+  <a class="left carousel-control" href="#carousel" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#carousel" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
+<script>
+function add_slide_entry(file, num) {
+  $('#list_img').loadTemplate($("#template"),
+    { file: location.protocol + '//' + location.host + '/' + file }, { append: true});
+  $('#indicator').append("<li data-target=\"#carousel\" data-slide-to=" + num + "></li>");
+}
+
+{{!-- on ready render the files list for those userspace  --}}
+$().ready(function(){
+  var files = {{{files}}};
+  if (files) {
+    i = 0;
+    for (a in files) {
+      add_slide_entry("{{random}}/" + files[a], i);
+      i++;
+    }
+  }
+});
+
+</script>
+
+<script type="text/html" id="template">
+  <div class="item">
+    <img data-src="file" alt="not provided">
+  </div>
+</script>

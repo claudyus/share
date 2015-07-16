@@ -6,3 +6,8 @@
   color: #333;
   display: none;
 }
+
+#carousel {
+	height: 500px;
+	margin-top: 60px;
+}
