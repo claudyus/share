@@ -1,11 +1,11 @@
 FROM google/nodejs
 
-COPY . /app
+RUN npm install -g grunt-cli bower
+
 WORKDIR /app
+COPY . /app
 
-RUN npm install -g grunt-cli bower && \
-	npm install && bower --allow-root install
+RUN npm install && bower --allow-root install
 
-ENV PORT 5000
-EXPOSE 5000
+EXPOSE 3000
 CMD ["node", "."]
