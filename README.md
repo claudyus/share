@@ -23,3 +23,16 @@ The following enviroment variables can be used to change default behaviour of sh
 
     $ bower update
     $ grunt
+
+# Dokku configuration
+
+  $ git push deploy
+  # dokku volume:add share /app/upload
+  # dokku ps:restart share
+
+
+# Nginx config
+
+Remember to increase the max body size:
+
+  client_max_body_size 2000M;
