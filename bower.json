@@ -13,6 +13,7 @@
     "dropzone": "~3.10.2",
     "jquery": "~2.1.1",
     "jquery-template": "~1.4.4",
-    "github-fork-ribbon-css": "~0.1.1"
+    "github-fork-ribbon-css": "~0.1.1",
+    "SlidesJS": "~3.0.4"
   }
 }

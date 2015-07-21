@@ -7,7 +7,6 @@
   display: none;
 }
 
-#carousel {
-	height: 500px;
-	margin-top: 60px;
+#slides {
+  display:none;
 }

@@ -37,7 +37,8 @@ module.exports = function(grunt) {
             'bower_components/jquery/dist/jquery.js',
             'bower_components/jquery-template/jquery-loadTemplate/jquery.loadTemplate-1.4.4.js',
             'bower_components/bootstrap/dist/js/bootstrap.js',
-            'bower_components/dropzone/downloads/dropzone.js'
+            'bower_components/dropzone/downloads/dropzone.js',
+            'bower_components/SlidesJS/source/jquery.slides.js'
           ]
         }
       }
