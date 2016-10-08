@@ -4,9 +4,9 @@
   "author": "Brian Green",
   "dependencies": {
     "busboy": "^0.2.7",
-    "debug": "^0.8.1",
-    "express": "^4.4.0",
-    "express-handlebars": "^1.0.3",
+    "debug": "^2.2.0",
+    "express": "^4.14.0",
+    "express-handlebars": "^3.0.0",
     "q": "^1.0.1",
     "rimraf": "^2.2.8",
     "sanitize-filename": "^1.0.1",
