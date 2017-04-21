@@ -1,9 +1,8 @@
 {
   "name": "share",
   "description": "An app for easily sharing files",
-  "author": "Brian Green",
+  "author": "Claudio Mignanti",
   "dependencies": {
-    "busboy": "^0.2.14",
     "debug": "^2.6.3",
     "express": "^4.15.2",
     "express-handlebars": "^3.0.0",
@@ -11,8 +10,7 @@
     "fs-extra": "^2.1.2",
     "morgan": "^1.8.1",
     "q": "^1.5.0",
-    "rimraf": "^2.6.1",
-    "sanitize-filename": "^1.6.1"
+    "rimraf": "^2.6.1"
   },
   "version": "2.0.0",
   "main": "./lib/server.js",
@@ -24,14 +22,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/briangreenery/share.git"
+    "url": "https://github.com/claudyus/share.git"
   },
   "keywords": [
     "file-upload"
   ],
   "license": "Unlicense",
   "bugs": {
-    "url": "https://github.com/briangreenery/share/issues"
+    "url": "https://github.com/claudyus/share/issues"
   },
-  "homepage": "https://github.com/briangreenery/share"
+  "homepage": "https://github.com/claudyus/share"
 }
