@@ -2,8 +2,14 @@
   <div class="row">
     <form action="/u/{{random}}" class="dropzone" id="dropzoneForm"></form>
   </div>
-  <div class"row" id="files_dl">
+  {{#if list_allowing}}
+  <div class="row" id="files_dl">
   </div>
+  {{else}}
+  <div class="row">
+    <i>File listing not allowed for this bucket</i>
+  </div>
+  {{/if}}
   <div class="row text-right">
     <button type="button" class="btn btn-warning" id="del_active"><i class="glyphicon glyphicon-trash"></i></button>
     <a href="/delete/{{random}}">

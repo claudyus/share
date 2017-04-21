@@ -7,6 +7,9 @@ An internal web app for sharing files using
 [dropzone.js](http://www.dropzonejs.com/). There are no limits on file size and
 no user authentication. Files are never cleaned up.
 
+You can upload a file called '.deny_list' to a given bucket to avoid to expose uploaded files.
+Another operation that can be disable il bucket deletion, in this case you should upload a '.deny_delete' file.
+
 ## Configuration
 
 The following enviroment variables can be used to change default behaviour of share:
