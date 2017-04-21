@@ -1,4 +1,4 @@
-FROM google/nodejs
+FROM node:7.9
 
 RUN npm install -g grunt-cli bower
 

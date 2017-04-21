@@ -32,7 +32,7 @@ The following enviroment variables can be used to change default behaviour of sh
 # Dokku configuration
 
   $ git push deploy
-  # dokku volume:add share /app/upload
+  # dokku storage:mount share /var/lib/dokku/data/storage/share:/app/upload
   # dokku ps:restart share
 
 
