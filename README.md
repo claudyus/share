@@ -31,13 +31,13 @@ The following enviroment variables can be used to change default behaviour of sh
 
 # Dokku configuration
 
-  $ git push deploy
-  # dokku storage:mount share /var/lib/dokku/data/storage/share:/app/upload
-  # dokku ps:restart share
+    $ git push deploy
+    # dokku storage:mount share /var/lib/dokku/data/storage/share:/app/upload
+    # dokku ps:restart share
 
 
 # Nginx config
 
 Remember to increase the max body size:
 
-  client_max_body_size 2000M;
+    client_max_body_size 2000M;
