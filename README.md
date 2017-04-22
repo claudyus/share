@@ -9,6 +9,7 @@ no user authentication. Files are never cleaned up.
 
 You can upload a file called '.deny_list' to a given bucket to avoid to expose uploaded files.
 Another operation that can be disable il bucket deletion, in this case you should upload a '.deny_delete' file.
+The '.token_upload' file can be used to set a bearer authorization token following RFC6750.
 
 ## Configuration
 
