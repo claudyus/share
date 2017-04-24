@@ -40,6 +40,9 @@ function onInit() {
 }
 
 Dropzone.options.dropzoneForm = {
+  {{#if token}}
+  url: "?access_token={{token}}",
+  {{/if}}
   maxFilesize: 100 * 1024,
   init: onInit
 };
