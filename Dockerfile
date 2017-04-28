@@ -1,5 +1,6 @@
-FROM node:7.9
+FROM node:7.9-alpine
 
+RUN apk update && apk add git
 RUN npm install -g grunt-cli bower
 
 WORKDIR /app
