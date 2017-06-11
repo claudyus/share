@@ -49,7 +49,47 @@ describe('Website tests', function() {
       .expect(200, done)
   })
 
+  it('test access token - return 401 without token', function(done){
+    fs.writeFileSync("./upload/random_test_dir/.token_upload", token)
+    request(app)
+      .post('/u/random_test_dir')
+      .attach('filename', 'test/web.js')
+      .expect(function(res) {
+        res.body.should.match(/random_test_dir/)
+      })
+      .expect(401, done)
+  })
+
+  it('test access token - return 200 with token', function(done){
+    fs.writeFileSync("./upload/random_test_dir/.token_upload", token)
+    request(app)
+      .post('/u/random_test_dir?access_token=' + token)
+      .attach('filename', 'test/web.js')
+      .expect(function(res) {
+        res.body.should.match(/random_test_dir/)
+      })
+      .expect(200, done)
+  })
+
+  it('test deny list - don\'t show file list', function(done){
+    fs.writeFileSync("./upload/random_test_dir/.deny_list", 'random_string_not_used')
+    request(app)
+      .get('/u/random_test_dir?access_token=' + token)
+      .expect(function(res) {
+        res.body.should.match(/File listing not allowed for this bucket/)        //ui: check message in html
+      })
+      .expect(200, done)
+  })
+
+  it('test deny delete - GET /delete/random_test_dir should return 405', function(done) {
+    fs.writeFileSync("./upload/random_test_dir/.deny_delete", 'random_string_not_used')
+    request(app)
+      .get('/delete/random_test_dir')
+      .expect(405, done)
+  });
+
   it('GET /delete/random_test_dir should remove directory', function(done) {
+    fs.unlinkSync("./upload/random_test_dir/.deny_delete")
     request(app)
       .get('/delete/random_test_dir')
       .expect(function(res) {
