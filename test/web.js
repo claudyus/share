@@ -117,6 +117,7 @@ describe('Website tests', function() {
 
     it('trigger cleanup GET /admin/cleanup', function(done) {
     fs.mkdirSync('upload/empty_dir');
+    fs.writeFileSync('upload/.keep_dir', '')            // ensure that upload dir isn't deleted (fix travis)
     request(app)
       .get('/admin/cleanup')
       .expect(200, function(){
