@@ -15,7 +15,7 @@
     "rimraf": "^2.6.1"
   },
   "version": "2.0.0",
-  "main": "./lib/server.js",
+  "main": "app.js",
   "devDependencies": {
     "grunt": "^1.0.1",
     "grunt-contrib-concat": "^1.0.1",
