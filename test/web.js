@@ -9,6 +9,9 @@ describe('Website tests', function() {
   it('GET / should return 200 OK', function(done) {
     request(app)
       .get('/')
+      .expect(function(res) {
+        res.body.should.match(/File Share/)     // ui: check brand
+      })
       .expect(200, done);
   });
 
@@ -35,6 +38,8 @@ describe('Website tests', function() {
       .get('/u/random_test_dir')
       .expect(function(res) {
         res.body.should.match(/random_test_dir/)
+        res.body.should.match(/form.*dropzone/)     // ui: check dropbox form
+        res.body.should.match(/a.*delete/)          // ui: chech lint to delete
       })
       .expect(200, done)
   });
