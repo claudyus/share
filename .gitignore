@@ -3,3 +3,4 @@ tmp/
 upload/
 .DS_STORE
 bower_components/*
+coverage/*
