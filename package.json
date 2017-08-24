@@ -3,7 +3,7 @@
   "description": "An app for easily sharing files",
   "author": "Claudio Mignanti",
   "dependencies": {
-    "debug": "^3.0.0",
+    "debug": "^3.0.1",
     "express": "^4.15.2",
     "express-bearer-token": "^2.1.0",
     "express-handlebars": "^3.0.0",
