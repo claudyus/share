@@ -46,11 +46,14 @@ describe('Website tests', function() {
   });
 
   it('POST file to /u/random_test_dir', function(done){
+    fs.unlink("./upload/random_test_dir/web.js", function(){})
     request(app)
       .post('/u/random_test_dir')
       .attach('filename', 'test/web.js')
       .expect(function(res) {
         res.body.should.match(/web.js/)     // the file should be listed in html
+        // the file should exist in directory
+        fs.existsSync("./upload/random_test_dir/web.js")
       })
       .expect(200, done)
   })
