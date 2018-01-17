@@ -12,11 +12,18 @@
     "morgan": "^1.9.0",
     "q": "^1.5.1",
     "raven": "^2.3.0",
-    "rimraf": "^2.6.2"
+    "rimraf": "^2.6.2",
+    "@bower_components/SlidesJS": "git://github.com/mitsuru/SlidesJS.git#~3.0.4",
+    "@bower_components/bootstrap": "git://github.com/twbs/bootstrap.git#~3.2.0",
+    "@bower_components/dropzone": "git://github.com/enyo/dropzone.git#~3.10.2",
+    "@bower_components/github-fork-ribbon-css": "git://github.com/simonwhitaker/github-fork-ribbon-css.git#~0.1.1",
+    "@bower_components/jquery": "git://github.com/jquery/jquery.git#~2.1.1",
+    "@bower_components/jquery-template": "git://github.com/thangchung/jquery-template.git#~1.4.4"
   },
   "main": "app.js",
   "scripts": {
-    "test": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
+    "test": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
+    "postinstall": "node -e \"try { require('fs').symlinkSync(require('path').resolve('node_modules/@bower_components'), 'bower_components', 'junction') } catch (e) { }\""
   },
   "devDependencies": {
     "coveralls": "^3.0.0",
@@ -42,5 +49,8 @@
   "bugs": {
     "url": "https://github.com/claudyus/share/issues"
   },
-  "homepage": "https://github.com/claudyus/share"
+  "homepage": "https://github.com/claudyus/share",
+  "engines": {
+    "yarn": ">= 1.0.0"
+  }
 }

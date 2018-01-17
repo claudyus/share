@@ -4,6 +4,7 @@ share
 [![dependencies Status](https://david-dm.org/claudyus/share/status.svg)](https://david-dm.org/claudyus/share)
 [![Build Status](https://travis-ci.org/claudyus/share.svg?branch=master)](https://travis-ci.org/claudyus/share)
 [![Coverage Status](https://coveralls.io/repos/github/claudyus/share/badge.svg?branch=master)](https://coveralls.io/github/claudyus/share?branch=master)
+[![Anchore Image Overview](https://anchore.io/service/badges/image/67f65186c6224b8076fbc2e6413c5e98cd1640a6125f7cb5cfa28ce00fe240da)](https://anchore.io/image/dockerhub/67f65186c6224b8076fbc2e6413c5e98cd1640a6125f7cb5cfa28ce00fe240da?repo=claudyus%2Fshare&tag=latest)
 
 An express.js web app for sharing files using [dropzone.js](http://www.dropzonejs.com/).
 There are no limits on file size and by default no user authentication. Files are never cleaned up.
@@ -26,12 +27,11 @@ The following enviroment variables can be used to change default behaviour of sh
 
 ## Running
 
-    $ npm install
+    $ yarn
     $ node .
 
 ## Updating client dependencies
 
-    $ bower update
     $ grunt
 
 # Dokku configuration
@@ -39,10 +39,3 @@ The following enviroment variables can be used to change default behaviour of sh
     $ git push deploy
     # dokku storage:mount share /var/lib/dokku/data/storage/share:/app/upload
     # dokku ps:restart share
-
-
-# Nginx config
-
-Remember to increase the max body size:
-
-    client_max_body_size 2000M;

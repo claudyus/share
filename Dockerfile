@@ -1,11 +1,11 @@
-FROM node:7.9-alpine
-
-RUN apk update && apk add git
-RUN npm install -g grunt-cli bower
+FROM node:9.4-alpine
 
 WORKDIR /app
+
+COPY package.json /app
+RUN apk --update add git && yarn
+
 COPY . /app
 
-RUN npm install && bower --allow-root install
 
 CMD ["node", "."]
