@@ -1,2 +1,4 @@
 images/*
 test/*
+node_modules/*
+bower_components/*
