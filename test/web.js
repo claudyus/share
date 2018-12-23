@@ -118,16 +118,29 @@ describe('Website tests', function() {
       .expect(404, done)
   });
 
-    it('trigger cleanup GET /admin/cleanup', function(done) {
-    fs.mkdirSync('upload/empty_dir');
-    fs.writeFileSync('upload/.keep_dir', '')            // ensure that upload dir isn't deleted (fix travis)
+  it('GET /admin/cleanup - should clean empty dir ', function(done) {
+  fs.mkdirSync('upload/empty_dir');
+  fs.writeFileSync('upload/.keep_dir', '')            // ensure that upload dir isn't deleted (fix travis)
+  request(app)
+    .get('/admin/cleanup')
+    .expect(200, function(){
+      if (fs.readdirSync('upload/').indexOf('empty_dir') != -1)
+          done( new Error('Dir not deleted'))
+      else
+          done()
+    })
+  });
+
+  it('GET /admin/cleanup - should not remove not empty dir', function(done) {
+    fs.mkdirSync('upload/not_empty');
+    fs.writeFileSync('upload/not_empty/im_still_here')
     request(app)
       .get('/admin/cleanup')
       .expect(200, function(){
-        if (fs.readdirSync('upload/').indexOf('empty_dir') != -1)
-            done( new Error('Dir not deleted'))
+        if (fs.readdirSync('upload/').indexOf('not_empty') == 1)
+          done()
         else
-            done()
+          done( new Error('Dir wrongly deleted'))
       })
   });
 
