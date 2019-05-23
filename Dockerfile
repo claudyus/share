@@ -1,5 +1,5 @@
 # NOTE: use the same version of travis.yml
-FROM node:10-alpine
+FROM node:12-alpine
 
 WORKDIR /app
 
