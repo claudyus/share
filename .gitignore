@@ -4,3 +4,4 @@ upload/
 .DS_STORE
 bower_components
 coverage/*
+.nyc_output/
