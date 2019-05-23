@@ -11,8 +11,14 @@ There are no limits on file size and by default no user authentication. Files ar
 
 ![screenshot](https://raw.githubusercontent.com/claudyus/share/master/images/screenshot.png)
 
-Each file bucket is configurable using dot-files. You can upload a file called '.deny_list' to a given bucket to avoid to expose uploaded files.
+## Access Control List of bucket
+
+Each ACL bucket is configurable using uploadind a files.
+
+You can upload a file called '.deny_list' to a given bucket to avoid to expose uploaded files.
+
 Another operation that can be disable is the bucket deletion, in this case you should upload a '.deny_delete' file.
+
 The '.token_upload' file can be used to set a bearer authorization token following [RFC6750](https://tools.ietf.org/html/rfc6750) standard.
 
 ## Configuration
