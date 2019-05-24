@@ -1,6 +1,10 @@
 <div class="container">
   <div class="row">
-    <form action="/u/{{random}}" class="dropzone" id="dropzoneForm"></form>
+    <form action="/u/{{random}}" enctype="multipart/form-data" class="dropzone" id="dropzoneForm">
+      <div class="fallback">
+        <input name="file" type="file" />
+      </div>
+    </form>
   </div>
   {{#if list_allowing}}
   <div class="row" id="files_dl">
@@ -43,7 +47,8 @@ Dropzone.options.dropzoneForm = {
   {{#if token}}
   url: "?access_token={{token}}",
   {{/if}}
-  maxFilesize: 100 * 1024,
+  maxFilesize: null,
+  chunking:true,
   init: onInit
 };
 
