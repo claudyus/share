@@ -1,10 +1,21 @@
-<div class="container text-center">
-  <form class="form-horizontal" action="/u/" >
-    <button type="submit" class="btn btn-success btn-lg">Create new random namespace...</button>
-    <div class="form-group">
-      <div class="col-lg-3">
-        <input type="text" class="form-control" name="namespace" placeholder=".. or enter a name to create/reopen an existing one">
+<div class="row">
+  <div class="container text-center">
+    {{! form should GET on /u/ w/o "namespace" quety for a new random namespace }}
+    <form action="/u/" >
+      <button type="submit" class="btn btn-success btn-lg">Click to create a new random namespace</button>
+    </form>
+  </div>
+</div>
+
+<div class="row">
+  <div class="container text-center">
+  <p>OR</p>
+    {{! form should GET on /u/ and input should have "namespace" prop }}
+    <form method="GET" action="/u/">
+      <div class="input-group">
+        <input type="text" class="form-control" aria-describedby="basic-addon3" name="namespace" placeholder="Enter a name to create/reopen an existing one">
+        <span class="input-group-addon btn btn-lg" type="submit">Open</span>
       </div>
-    </div>
-  <form>
+    </form>
+  </div>
 </div>
