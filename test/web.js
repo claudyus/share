@@ -11,7 +11,7 @@ describe('Website tests', function() {
     request(app)
       .get('/')
       .expect(function(res) {
-        res.body.should.match(/File Share/)     // ui: check brand
+        should(res.body).match(/File Share/)     // ui: check brand
       })
       .expect(200, done);
   });
@@ -20,7 +20,7 @@ describe('Website tests', function() {
     request(app)
       .get('/u/', {followRedirect: false})
       .expect(function(res) {
-        res.header.location.should.match(/u\/.*/)     // redirect path match random format
+        should(res.header.location).match(/u\/.*/)     // redirect path match random format
       })
       .expect(302, done);
   });
@@ -29,7 +29,7 @@ describe('Website tests', function() {
     request(app)
       .get('/u/?namespace=test', {followRedirect: false})
       .expect(function(res) {
-        res.header.location.should.endWith('test')      // redirect path should end in test
+        should(res.header.location).endWith('test')      // redirect path should end in test
       })
       .expect(302, done)
   });
@@ -38,9 +38,9 @@ describe('Website tests', function() {
     request(app)
       .get('/u/random_test_dir')
       .expect(function(res) {
-        res.body.should.match(/random_test_dir/)
-        res.body.should.match(/form.*dropzone/)     // ui: check dropbox form
-        res.body.should.match(/a.*delete/)          // ui: chech lint to delete
+        should(res.body).match(/random_test_dir/)
+        should(res.body).match(/form.*dropzone/)     // ui: check dropbox form
+        should(res.body).match(/a.*delete/)          // ui: chech lint to delete
       })
       .expect(200, done)
   });
@@ -51,7 +51,7 @@ describe('Website tests', function() {
       .post('/u/random_test_dir')
       .attach('filename', 'test/web.js')
       .expect(function(res) {
-        res.body.should.match(/web.js/)     // the file should be listed in html
+        should(res.body).match(/web.js/)     // the file should be listed in html
         // the file should exist in directory
         fs.existsSync("./upload/random_test_dir/web.js")
       })
@@ -62,7 +62,7 @@ describe('Website tests', function() {
     request(app)
       .get('/u/random_test_dir/web.js')
       .expect(function(res) {
-        res.header.location.should.be.exactly('/random_test_dir/web.js')
+        should(res.header.location).be.exactly('/random_test_dir/web.js')
       })
       .expect(302, done)
   });
@@ -73,7 +73,7 @@ describe('Website tests', function() {
       .post('/u/random_test_dir')
       .attach('filename', 'test/web.js')
       .expect(function(res) {
-        res.body.should.match(/random_test_dir/)
+        should(res.body).match(/random_test_dir/)
       })
       .expect(401, done)
   })
@@ -84,7 +84,7 @@ describe('Website tests', function() {
       .post('/u/random_test_dir?access_token=' + token)
       .attach('filename', 'test/web.js')
       .expect(function(res) {
-        res.body.should.match(/random_test_dir/)
+        should(res.body).match(/random_test_dir/)
       })
       .expect(200, done)
   })
@@ -94,7 +94,7 @@ describe('Website tests', function() {
     request(app)
       .get('/u/random_test_dir?access_token=' + token)
       .expect(function(res) {
-        res.body.should.match(/File listing not allowed for this bucket/)        //ui: check message in html
+        should(res.body).match(/File listing not allowed for this bucket/)        //ui: check message in html
       })
       .expect(200, done)
   })
@@ -111,8 +111,8 @@ describe('Website tests', function() {
     request(app)
       .get('/delete/random_test_dir')
       .expect(function(res) {
-        res.body.should.match(/random_test_dir/)
-        res.header.location.should.be.exactly('/')
+        should(res.body).match(/random_test_dir/)
+        should(res.header.location).be.exactly('/')
 
       })
       .expect(302, done)
@@ -122,7 +122,7 @@ describe('Website tests', function() {
     request(app)
       .get('/missed_url')
       .expect(function(res) {
-        res.body.should.match(/youtube/)
+        should(res.body).match(/youtube/)
       })
       .expect(404, done)
   });
