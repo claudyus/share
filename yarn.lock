@@ -1625,10 +1625,10 @@ istanbul@^0.4.5:
   version "0.0.0"
   resolved "git://github.com/thangchung/jquery-template#6964c08ba63eb49ce8d366fa4073a444cd5fb32d"
 
-jquery@2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/jquery/-/jquery-2.1.1.tgz#828fc60f50f7ee5983363ef4eb01c5f70af4bd5b"
-  integrity sha1-go/GD1D37lmDNj706wHF9wr0vVs=
+jquery@3.4.1:
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.4.1.tgz#714f1f8d9dde4bdfa55764ba37ef214630d80ef2"
+  integrity sha512-36+AdBzCL+y6qjw5Tx7HgzeGCzC81MDDgaUP8ld2zhx58HdqXGoBd+tHdrBMiyjGQs0Hxs/MLZTu/eHNJJuWPw==
 
 js-tokens@^4.0.0:
   version "4.0.0"

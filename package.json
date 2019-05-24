@@ -6,7 +6,7 @@
     "bootstrap": "3.3.7",
     "dropzone": "git://github.com/enyo/dropzone#5.5.0",
     "fork-ribbon": "0.1.0",
-    "jquery": "2.1.1",
+    "jquery": "3.4.1",
     "jquery-template": "git://github.com/thangchung/jquery-template#1.4.4",
     "coverage-viewer": "^0.4.0",
     "debug": "^4.1.1",
