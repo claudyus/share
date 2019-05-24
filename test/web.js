@@ -58,6 +58,15 @@ describe('Website tests', function() {
       .expect(200, done)
   })
 
+  it('GET on bucket to file redirect to file', function(done) {
+    request(app)
+      .get('/u/random_test_dir/web.js')
+      .expect(function(res) {
+        res.header.location.should.be.exactly('/random_test_dir/web.js')
+      })
+      .expect(302, done)
+  });
+
   it('test access token - return 401 without token', function(done){
     fs.writeFileSync("./upload/random_test_dir/.token_upload", token)
     request(app)
