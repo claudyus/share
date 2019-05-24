@@ -7,13 +7,13 @@ module.exports = function(grunt) {
     copy: {
       bootstrap: {
         expand: true,
-        cwd: 'bower_components/bootstrap/dist/fonts/',
+        cwd: 'node_modules/bootstrap/dist/fonts/',
         src: '**',
         dest: 'public/fonts'
       },
       dropzone: {
         expand: true,
-        cwd: 'bower_components/dropzone/downloads/images/',
+        cwd: 'node_modules/dropzone/downloads/images/',
         src: '**',
         dest: 'public/images'
       }
@@ -22,9 +22,9 @@ module.exports = function(grunt) {
       css: {
         files: {
           'public/share.css': [
-            'bower_components/bootstrap/dist/css/bootstrap.css',
-            'bower_components/dropzone/downloads/css/dropzone.css',
-            'bower_components/github-fork-ribbon-css/gh-fork-ribbon.css',
+            'node_modules/bootstrap/dist/css/bootstrap.css',
+            'node_modules/dropzone/dist/dropzone.css',
+//            'node_modules/fork-ribbon/fork-ribbon.css',
             'assets/share.css'
           ]
         }
@@ -34,10 +34,10 @@ module.exports = function(grunt) {
       external: {
         files: {
           'public/share.js': [
-            'bower_components/jquery/dist/jquery.js',
-            'bower_components/jquery-template/jquery-loadTemplate/jquery.loadTemplate-1.4.4.js',
-            'bower_components/bootstrap/dist/js/bootstrap.js',
-            'bower_components/dropzone/downloads/dropzone.js'
+            'node_modules/bootstrap/dist/bootstrap.js',
+            'node_modules/jquery/dist/jquery.js',
+            'node_modules/dropzone/dist/dropzone.js',
+            'node_modules/jquery-template/jquery-loadTemplate/jquery.loadTemplate-1.4.4.js'
           ]
         }
       }

@@ -90,30 +90,6 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
-"@bower_components/SlidesJS@git://github.com/mitsuru/SlidesJS.git#~3.0.4":
-  version "0.0.0"
-  resolved "git://github.com/mitsuru/SlidesJS.git#d10d8bfe87af711665e9495fefbd1994f8dd813f"
-
-"@bower_components/bootstrap@git://github.com/twbs/bootstrap.git#~3.2.0":
-  version "3.2.0"
-  resolved "git://github.com/twbs/bootstrap.git#c068162161154a4b85110ea1e7dd3d7897ce2b72"
-
-"@bower_components/dropzone@git://github.com/enyo/dropzone.git#~3.10.2":
-  version "3.10.2"
-  resolved "git://github.com/enyo/dropzone.git#54062558d124e8b228462be2bf7af2b916f0312b"
-
-"@bower_components/github-fork-ribbon-css@git://github.com/simonwhitaker/github-fork-ribbon-css.git#~0.1.1":
-  version "0.0.0"
-  resolved "git://github.com/simonwhitaker/github-fork-ribbon-css.git#b3305a5555123a30502c1feb4ff23047030dc3f0"
-
-"@bower_components/jquery-template@git://github.com/thangchung/jquery-template.git#~1.4.4":
-  version "0.0.0"
-  resolved "git://github.com/thangchung/jquery-template.git#6964c08ba63eb49ce8d366fa4073a444cd5fb32d"
-
-"@bower_components/jquery@git://github.com/jquery/jquery.git#~2.1.1":
-  version "2.1.4"
-  resolved "git://github.com/jquery/jquery.git#7751e69b615c6eca6f783a81e292a55725af6b85"
-
 abbrev@1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
@@ -299,6 +275,11 @@ body-parser@1.19.0:
     qs "6.7.0"
     raw-body "2.4.0"
     type-is "~1.6.17"
+
+bootstrap@3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-3.2.0.tgz#a0726e7c12e79f4a2a504f8d1ee9f2850a83f637"
+  integrity sha1-oHJufBLnn0oqUE+NHunyhQqD9jc=
 
 brace-expansion@^1.1.7:
   version "1.1.8"
@@ -720,6 +701,10 @@ diff@3.5.0:
   resolved "https://registry.yarnpkg.com/diff/-/diff-3.5.0.tgz#800c0dd1e0a8bfbc95835c202ad220fe317e5a12"
   integrity sha512-A46qtFgd+g7pDZinpnwiRJtxbC1hpgf0uzP3iG89scHk0AUC7A1TGxf5OiiOUv/JMZR8GOt8hL900hV0bOy5xA==
 
+"dropzone@git://github.com/enyo/dropzone#5.5.0":
+  version "5.5.0"
+  resolved "git://github.com/enyo/dropzone#08b9e0a763b54a685404dea523a9c54242fbe1b9"
+
 duplexer@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/duplexer/-/duplexer-0.1.1.tgz#ace6ff808c1ce66b57d1ebf97977acb02334cfc1"
@@ -1059,6 +1044,11 @@ foreground-child@^1.5.6:
 forever-agent@~0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/forever-agent/-/forever-agent-0.6.1.tgz#fbc71f0c41adeb37f96c577ad1ed42d8fdacca91"
+
+fork-ribbon@0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/fork-ribbon/-/fork-ribbon-0.1.0.tgz#b4bfffdc2d707a0d3750bcc2b729dd6d5809bbf6"
+  integrity sha1-tL//3C1weg03ULzCtyndbVgJu/Y=
 
 form-data@^2.3.1:
   version "2.3.1"
@@ -1631,6 +1621,15 @@ istanbul@^0.4.5:
     which "^1.1.1"
     wordwrap "^1.0.0"
 
+"jquery-template@git://github.com/thangchung/jquery-template#1.4.4":
+  version "0.0.0"
+  resolved "git://github.com/thangchung/jquery-template#6964c08ba63eb49ce8d366fa4073a444cd5fb32d"
+
+jquery@2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-2.1.1.tgz#828fc60f50f7ee5983363ef4eb01c5f70af4bd5b"
+  integrity sha1-go/GD1D37lmDNj706wHF9wr0vVs=
+
 js-tokens@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
@@ -1968,6 +1967,11 @@ mocha@^6.1.4:
     yargs "13.2.2"
     yargs-parser "13.0.0"
     yargs-unparser "1.5.0"
+
+moment@^2.24.0:
+  version "2.24.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
+  integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
 
 morgan@^1.9.1:
   version "1.9.1"
