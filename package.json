@@ -3,7 +3,7 @@
   "description": "An app for easily sharing files online",
   "author": "Claudio Mignanti",
   "dependencies": {
-    "bootstrap": "3.2.0",
+    "bootstrap": "3.3.7",
     "dropzone": "git://github.com/enyo/dropzone#5.5.0",
     "fork-ribbon": "0.1.0",
     "jquery": "2.1.1",
