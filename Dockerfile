@@ -4,7 +4,7 @@ FROM node:12-alpine
 WORKDIR /app
 
 COPY package.json /app
-RUN apk --update add git && yarn && yarn cache clean
+RUN apk --update add git && yarn --ignore-scripts && yarn cache clean
 
 COPY . /app
 
