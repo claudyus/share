@@ -1,0 +1,185 @@
+var request = require('supertest');
+var should = require('should');
+var fs = require('fs');
+
+var app = require('../lib/server.js');
+
+var token = 'token_super_secret'
+
+describe('Server tests', function() {
+  it('GET / should return 200 OK', function(done) {
+    request(app)
+      .get('/')
+      .expect(function(res) {
+        should(res.body).match(/File Share/)     // ui: check brand
+      })
+      .expect(200, done);
+  });
+
+  it('GET /u/ should redirect with 302', function(done) {
+    request(app)
+      .get('/u/', {followRedirect: false})
+      .expect(function(res) {
+        should(res.header.location).match(/u\/.*/)     // redirect path match random format
+      })
+      .expect(302, done);
+  });
+
+  it('GET /u/ should redirect to given path', function(done) {
+    request(app)
+      .get('/u/?namespace=test', {followRedirect: false})
+      .expect(function(res) {
+        should(res.header.location).endWith('test')      // redirect path should end in test
+      })
+      .expect(302, done)
+  });
+
+  it('GET /u/random_test_dir should redirect to given path', function(done) {
+    request(app)
+      .get('/u/random_test_dir')
+      .expect(function(res) {
+        should(res.body).match(/random_test_dir/)
+        should(res.body).match(/form.*dropzone/)     // ui: check dropbox form
+        should(res.body).match(/a.*delete/)          // ui: chech lint to delete
+      })
+      .expect(200, done)
+  });
+
+  it('POST file to /u/random_test_dir', function(done){
+    fs.unlink("./upload/random_test_dir/web.js", function(){})
+    request(app)
+      .post('/u/random_test_dir')
+      .attach('filename', 'test/web.js')
+      .expect(function(res) {
+        should(res.body).match(/web.js/)     // the file should be listed in html
+        // the file should exist in directory
+        fs.existsSync("./upload/random_test_dir/web.js")
+      })
+      .expect(200, done)
+  })
+
+  it('GET on bucket to file redirect to file', function(done) {
+    request(app)
+      .get('/u/random_test_dir/web.js')
+      .expect(function(res) {
+        should(res.header.location).be.exactly('/random_test_dir/web.js')
+      })
+      .expect(302, done)
+  });
+
+  it('test access token - return 401 without token', function(done){
+    fs.writeFileSync("./upload/random_test_dir/.token_upload", token)
+    request(app)
+      .post('/u/random_test_dir')
+      .attach('filename', 'test/web.js')
+      .expect(function(res) {
+        should(res.body).match(/random_test_dir/)
+      })
+      .expect(401, done)
+  })
+
+  it('test access token - return 200 with token', function(done){
+    fs.writeFileSync("./upload/random_test_dir/.token_upload", token)
+    request(app)
+      .post('/u/random_test_dir?access_token=' + token)
+      .attach('filename', 'test/web.js')
+      .expect(function(res) {
+        should(res.body).match(/random_test_dir/)
+      })
+      .expect(200, done)
+  })
+
+  it('test deny list - don\'t show file list', function(done){
+    fs.writeFileSync("./upload/random_test_dir/.deny_list", 'random_string_not_used')
+    request(app)
+      .get('/u/random_test_dir?access_token=' + token)
+      .expect(function(res) {
+        should(res.body).match(/File listing not allowed for this bucket/)        //ui: check message in html
+      })
+      .expect(200, done)
+  })
+
+  it('test deny delete - GET /delete/random_test_dir should return 405', function(done) {
+    fs.writeFileSync("./upload/random_test_dir/.deny_delete", 'random_string_not_used')
+    request(app)
+      .get('/delete/random_test_dir')
+      .expect(405, done)
+  });
+
+  it('GET /delete/random_test_dir should remove directory', function(done) {
+    fs.unlinkSync("./upload/random_test_dir/.deny_delete")
+    request(app)
+    .get('/delete/random_test_dir')
+    .expect(function(res) {
+      should(res.body).match(/random_test_dir/)
+      should(res.header.location).be.exactly('/')
+
+    })
+    .expect(302, done)
+  });
+
+  it('GET /missed_url should return 404', function(done) {
+    request(app)
+    .get('/missed_url')
+    .expect(function(res) {
+      should(res.body).match(/youtube/)
+    })
+    .expect(404, done)
+  });
+
+  /* API TEST */
+  it.only('GET /api/bucket/:bucket_name/:files should return file list', function(done) {
+    try {
+      fs.mkdirSync("./upload/api_test/")
+      fs.writeFileSync("./upload/api_test/test_file")
+    } catch (e) {}
+    request(app)
+    .get('/api/bucket/api_test')
+    .expect(function(res) {
+      console.log(res.body)
+      should(res.body).containDeep('test_file')
+    })
+    .expect(302, done)
+  });
+
+  it('DELETE /api/bucket/:bucket_name/:file should remove file', function(done) {
+    fs.writeFileSync("./upload/api_test/test_file")
+    request(app)
+    .get('/api/bucket/api_test/test_file')
+    .expect(function(res) {
+      should(res.body).match(/api_test/)
+      should(res.header.location).be.exactly('/')
+    })
+    .expect(302, done)
+  });
+
+  /* ADMIN TEST */
+  it('GET /admin/cleanup - should clean empty dir ', function(done) {
+  fs.mkdirSync('upload/empty_dir');
+  fs.writeFileSync('upload/.keep_dir', '')            // ensure that upload dir isn't deleted (fix travis)
+  request(app)
+    .get('/admin/cleanup')
+    .expect(200, function(){
+      if (fs.readdirSync('upload/').indexOf('empty_dir') != -1)
+          done( new Error('Dir not deleted'))
+      else
+          done()
+    })
+  });
+
+  it('GET /admin/cleanup - should not remove not empty dir', function(done) {
+    fs.mkdirSync('upload/not_empty');
+    fs.writeFileSync('upload/not_empty/im_still_here')
+    request(app)
+      .get('/admin/cleanup')
+      .expect(200, function(){
+        if (fs.readdirSync('upload/').indexOf('not_empty') == 1)
+          done()
+        else
+          done( new Error('Dir wrongly deleted'))
+      })
+  });
+
+});
+
+
