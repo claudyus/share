@@ -141,12 +141,16 @@ describe('Website tests', function() {
   });
 
   it('GET /admin/cleanup - should not remove not empty dir', function(done) {
-    fs.mkdirSync('upload/not_empty');
-    fs.writeFileSync('upload/not_empty/im_still_here')
+    try {
+      fs.mkdirSync('upload/not_empty');
+      fs.writeFileSync('upload/not_empty/im_still_here')
+    } catch {
+      // dir/file still exist, previosly test failed? Ignore
+    }
     request(app)
       .get('/admin/cleanup')
       .expect(200, function(){
-        if (fs.readdirSync('upload/').indexOf('not_empty') == 1)
+        if (fs.readdirSync('upload/').indexOf('not_empty') != -1)
           done()
         else
           done( new Error('Dir wrongly deleted'))
