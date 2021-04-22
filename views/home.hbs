@@ -9,6 +9,12 @@
   {{#if list_allowing}}
   <div class="row" id="files_dl">
   </div>
+  <div>
+    <pre id="curl">
+Upload to this bucket using curl: <br>
+    </pre>
+  </div>
+
   {{else}}
   <div class="row">
     <i>File listing not allowed for this bucket</i>
@@ -21,7 +27,6 @@
     </a>
   </div>
 </div>
-
 <script>
 {{!-- signature compliant with dropzone.onSuccess() --}}
 function add_file_entry(file, resp) {
@@ -37,6 +42,8 @@ $().ready(function(){
       add_file_entry(null, "{{random}}/" + files[a]);
     }
   }
+  {{!-- add curl link  --}}
+  $("#curl").append("curl -X POST -F \"filename=@<filename>\" " + location.protocol + '//' + location.host + '/u/{{random}}')
 });
 
 function onInit() {
