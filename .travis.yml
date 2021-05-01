@@ -6,5 +6,4 @@ cache:
 
 node_js:
   # keep in sync with same versione of Dockerfile
-  - "12"
-  - "10"
+  - "14"
